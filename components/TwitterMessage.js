@@ -1,40 +1,38 @@
 const React = require('react');
 
-
 class TwitterMessage extends React.Component {
-  constructor() {
-    super();
-
+  constructor(props) {
+    super(props);
+    this.handleMessage = this.handleMessage.bind(this);
     this.state = {
-      message: ''
+      message: '',
+      counter: props.maxChars
     };
-
-    this.setMessage = this.setMessage.bind(this);
   }
 
-  setMessage(ev){
-    this.setState({
-      message: ev.target.value
-    })
+  handleMessage(e){
+    const content = e.target.value;
+
+    if(content){
+      this.setState({
+        message: e.target.value,
+        counter: this.props.maxChars - content.split('').length
+      })
+    }
   }
 
   render() {
     return (
       <div>
         <strong>Your message:</strong>
-        <input type="text" value={this.state.message} onChange={this.setMessage} />
-        <span>{this.props.maxChars - this.state.message.length}</span>
+        <input type="text"
+          value={this.state.message}
+          onChange={this.handleMessage}
+        />
+        <p>Remaning chars: {this.state.counter}</p>
       </div>
     );
   }
-}
-
-TwitterMessage.propTypes = {
-  maxChars: React.PropTypes.number
-}
-
-TwitterMessage.defaultProps = {
-  maxChars: 140
 }
 
 module.exports = TwitterMessage;

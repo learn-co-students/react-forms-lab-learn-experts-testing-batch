@@ -4,48 +4,50 @@ class LoginForm extends React.Component {
   constructor() {
     super();
 
+    this.handleUsername = this.handleUsername.bind(this);
+    this.handlePassword = this.handlePassword.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
     this.state = {
       username: '',
       password: ''
     };
-
-    this.changeInputState = this.changeInputState.bind(this);
-    this.submitState = this.submitState.bind(this);
   }
 
-  changeInputState(field, event){
+  handleSubmit(e){
+    e.preventDefault();
+    if(this.state.username !== '' && this.state.password !== ''){
+      this.props.onSubmit();
+    }
+  }
+
+  handleUsername(e){
     this.setState({
-      [field]: event.target.value
+      username: e.target.value
     })
   }
 
-  submitState(ev){
-    ev.preventDefault();
-    const {username, password } = this.state;
-
-    if(!username || !password) {
-      return;
-    }
-
-    this.props.onSubmit({
-      username,
-      password
+  handlePassword(e){
+    this.setState({
+      password: e.target.value
     })
   }
 
   render() {
     return (
-      <form onSubmit={this.submitState}>
+      <form onSubmit={this.handleSubmit}>
         <div>
           <label>
             Username
-            <input id="test-username" type="text" value={this.state.username} onChange={this.changeInputState.bind(this, 'username')}/>
+            <input id="test-username" type="text" value={this.state.username}
+            onChange={this.handleUsername} />
           </label>
         </div>
         <div>
           <label>
             Password
-            <input id="test-password" type="password" value={this.state.password} onChange={this.changeInputState.bind(this, 'password')}/>
+            <input id="test-password" type="password" value={this.state.password}
+            onChange={this.handlePassword} />
           </label>
         </div>
         <div>

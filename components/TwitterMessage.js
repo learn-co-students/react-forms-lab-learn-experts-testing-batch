@@ -36,4 +36,8 @@ TwitterMessage.defaultProps = {
   maxChars: 140
 }
 
+TwitterMessage.propTypes = {
+  maxChars: React.PropTypes.number
+}
+
 module.exports = TwitterMessage;

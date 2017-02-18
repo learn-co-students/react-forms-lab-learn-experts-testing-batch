@@ -1,2 +1,2 @@
-require('./TwitterMessage-test');
-require('./LoginForm-test');
+require('./TwitterMessage-test')
+require('./LoginForm-test')
